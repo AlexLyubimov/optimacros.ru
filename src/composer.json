@@ -1,0 +1,24 @@
+{
+    "name": "optimacros/example",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Optimacros\\App\\": "./app"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "UnitTests\\Optimacros\\": "./tests/unit"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.3"
+    },
+    "scripts": {
+        "unit-tests": "./vendor/bin/phpunit tests"
+    }
+}

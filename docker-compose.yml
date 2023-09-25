@@ -1,0 +1,30 @@
+version: "3.4"
+
+services:
+  init-container: &php-container
+    container_name: optimacros-init-container
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    user: 1000:1000
+    working_dir: /var/www
+    restart: "no"
+    command: ["composer", "install"]
+    volumes:
+      - ./src:/var/www/
+
+  php-tests:
+    <<: *php-container
+    container_name: optimacros-php-tests
+    command: ["composer", "unit-tests"]
+    depends_on:
+      init-container:
+        condition: service_completed_successfully
+
+#  php-manual:
+#    <<: *php-container
+#    container_name: optimacros-php-manual
+#    command: ["php", "index.php", "/var/www/tests/_data/input.csv", "/var/www/output.json"]
+#    depends_on:
+#      init-container:
+#        condition: service_completed_successfully
